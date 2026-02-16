@@ -9,7 +9,7 @@ from plugins import web_server
 import pyrogram.utils
 from aiohttp import web
 
-pyrogram.utils.MIN_CHANNEL_ID = -1009147483647
+pyrogram.utils.MIN_CHANNEL_ID = 
 
 name = """
 Links Sharing Started
@@ -43,7 +43,7 @@ class Bot(Client):
             self.LOGGER(__name__).warning(f"Failed to notify owner ({OWNER_ID}) of bot start: {e}")
 
         self.set_parse_mode(ParseMode.HTML)
-        self.LOGGER(__name__).info("Bot Running..!\n\nCreated by \nhttps://t.me/ProObito")
+        self.LOGGER(__name__).info("Bot Running..!\n\nHosted by \nhttps://t.me/Unrated_Coder")
         self.LOGGER(__name__).info(f"{name}")
         self.username = usr_bot_me.username
 
