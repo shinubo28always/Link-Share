@@ -27,8 +27,8 @@ TG_BOT_WORKERS = int(os.environ.get("TG_BOT_WORKERS", "40"))
 #--- ---- ---- --- --- --- - -- -  - - - - - - - - - - - --  - -
 
 # Start pic
-START_PIC_FILE_ID = "https://graph.org/file/ab895207006b75e02b3a8-db17654a8b642e8a12.jpg"
-START_PIC = "https://graph.org/file/1f8e9dd564b167c085b1b-84e5b4e7a4459fbc81.jpg"
+START_PIC_FILE_ID = "https://files.catbox.moe/svvz29"
+START_PIC = "https://files.catbox.moe/svvz29"
 # Messages
 START_MSG = os.environ.get("START_MESSAGE", "<b>ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ ᴛʜᴇ ᴀᴅᴠᴀɴᴄᴇᴅ ʟɪɴᴋs sʜᴀʀɪɴɢ ʙᴏᴛ. ᴡɪᴛʜ ᴛʜɪs ʙᴏᴛ, ʏᴏᴜ ᴄᴀɴ sʜᴀʀᴇ ʟɪɴᴋs ᴀɴᴅ ᴋᴇᴇᴘ ʏᴏᴜʀ ᴄʜᴀɴɴᴇʟs sᴀғᴇ ғʀᴏᴍ ᴄᴏᴘʏʀɪɢʜᴛ ɪssᴜᴇs.</b>")
 HELP = os.environ.get("HELP_MESSAGE", "<b><blockquote>» Creator: <a href=https://t.me/sitaratoons_support>Owner</a></blockquote>")
