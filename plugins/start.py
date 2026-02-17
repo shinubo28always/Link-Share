@@ -396,70 +396,68 @@ async def monitor_messages(client: Bot, message: Message):
 @Bot.on_callback_query()
 async def cb_handler(client: Bot, query: CallbackQuery):
     data = query.data  
-    chat_id = query.message.chat.id
     
-    if data == "close":
-        await query.message.delete()
-        try:
-            await query.message.reply_to_message.delete()
-        except:
-            pass
+    # Sabse pehle answer_callback_query kar do taaki loading icon hat jaye
+    await query.answer()
     
-    elif data == "about":
-        user = await client.get_users(OWNER_ID)
-        user_link = f"https://t.me/{user.username}" if user.username else f"tg://openmessage?user_id={OWNER_ID}"
+    try:
+        if data == "close":
+            await query.message.delete()
+            try:
+                await query.message.reply_to_message.delete()
+            except:
+                pass
         
-        await query.edit_message_media(
-            InputMediaPhoto(
-                "https://graph.org/file/7228e9fe7ebf6145cca11-38b598b785ee91950b.jpg",
-                ABOUT_TXT
-            ),
-            reply_markup=InlineKeyboardMarkup([
-                [InlineKeyboardButton('• ʙᴀᴄᴋ', callback_data='start'), InlineKeyboardButton('ᴄʟᴏsᴇ •', callback_data='close')]
-            ]),
-        )
+        elif data == "about":
+            await query.edit_message_media(
+                InputMediaPhoto(
+                    "https://graph.org/file/7228e9fe7ebf6145cca11-38b598b785ee91950b.jpg",
+                    caption=ABOUT_TXT # Caption keyword use karna safe rehta hai
+                ),
+                reply_markup=InlineKeyboardMarkup([
+                    [InlineKeyboardButton('• ʙᴀᴄᴋ', callback_data='start'), 
+                     InlineKeyboardButton('ᴄʟᴏsᴇ •', callback_data='close')]
+                ]),
+            )
 
-    elif data == "channels":
-        user = await client.get_users(OWNER_ID)
-        user_link = f"https://t.me/{user.username}" if user.username else f"tg://openmessage?user_id={OWNER_ID}" 
-        ownername = f"<a href={user_link}>{user.first_name}</a>" if user.first_name else f"<a href={user_link}>no name !</a>"
-        await query.edit_message_media(
-            InputMediaPhoto("https://graph.org/file/7228e9fe7ebf6145cca11-38b598b785ee91950b.jpg", 
-                            CHANNELS_TXT
-            ),
-            reply_markup=InlineKeyboardMarkup([
-                [InlineKeyboardButton('• ʙᴀᴄᴋ', callback_data='start'), InlineKeyboardButton('close•', callback_data='close')]
-            ]),
-        )
-    elif data in ["start", "home"]:
-        inline_buttons = InlineKeyboardMarkup(
-            [
-                [InlineKeyboardButton("• ᴀʙᴏᴜᴛ", callback_data="about"),
-                 InlineKeyboardButton("• ᴄʜᴀɴɴᴇʟs", callback_data="channels")],
-                [InlineKeyboardButton("• Close •", callback_data="close")]
-            ]
-        )
-        try:
+        elif data == "channels":
+            await query.edit_message_media(
+                InputMediaPhoto(
+                    "https://graph.org/file/7228e9fe7ebf6145cca11-38b598b785ee91950b.jpg", 
+                    caption=CHANNELS_TXT
+                ),
+                reply_markup=InlineKeyboardMarkup([
+                    [InlineKeyboardButton('• ʙᴀᴄᴋ', callback_data='start'), 
+                     InlineKeyboardButton('close•', callback_data='close')]
+                ]),
+            )
+
+        elif data in ["start", "home"]:
+            inline_buttons = InlineKeyboardMarkup(
+                [
+                    [InlineKeyboardButton("• ᴀʙᴏᴜᴛ", callback_data="about"),
+                     InlineKeyboardButton("• ᴄʜᴀɴɴᴇʟs", callback_data="channels")],
+                    [InlineKeyboardButton("• Close •", callback_data="close")]
+                ]
+            )
             await query.edit_message_media(
                 InputMediaPhoto(
                     START_PIC,
-                    START_MSG
+                    caption=START_MSG
                 ),
                 reply_markup=inline_buttons
             )
-        except Exception as e:
-            print(f"Error sending start/home photo: {e}")
-            await query.edit_message_text(
-                START_MSG,
-                reply_markup=inline_buttons,
-                parse_mode=ParseMode.HTML
-            )
 
-def delete_after_delay(msg, delay):
-    async def inner():
-        await asyncio.sleep(delay)
-        try:
-            await msg.delete()
-        except:
-            pass
-    return inner()
+    except MessageNotModified:
+        # Agar user baar-baar wahi button dabaye toh error ignore karo
+        pass
+    except Exception as e:
+        print(f"Error in cb_handler: {e}"
+        )
+
+async def delete_after_delay(msg, delay):
+    await asyncio.sleep(delay)
+    try:
+        await msg.delete()
+    except Exception as e:
+        print(f"Delete error: {e}")
