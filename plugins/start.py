@@ -452,8 +452,8 @@ async def cb_handler(client: Bot, query: CallbackQuery):
         # Agar user baar-baar wahi button dabaye toh error ignore karo
         pass
     except Exception as e:
-        print(f"Error in cb_handler: {e}"
-        )
+        print(f"Error in cb_handler: {e}")
+
 
 async def delete_after_delay(msg, delay):
     await asyncio.sleep(delay)
