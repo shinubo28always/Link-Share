@@ -131,8 +131,8 @@ async def start_command(client: Bot, message: Message):
         inline_buttons = InlineKeyboardMarkup(
             [
                 [InlineKeyboardButton("• ᴀʙᴏᴜᴛ", callback_data="about"),
-                 InlineKeyboardButton("• ᴄʜᴀɴɴᴇʟs", callback_data="channels")],
-                [InlineKeyboardButton("• Close •", callback_data="close")]
+                 InlineKeyboardButton("ᴄʜᴀɴɴᴇʟs •", callback_data="channels")],
+                [InlineKeyboardButton("• Jᴏɪɴ ᴜᴘᴅᴀᴛᴇs •", url="https://t.me/Unrated_Coder")]
             ]
         )
         
@@ -436,8 +436,8 @@ async def cb_handler(client: Bot, query: CallbackQuery):
             inline_buttons = InlineKeyboardMarkup(
                 [
                     [InlineKeyboardButton("• ᴀʙᴏᴜᴛ", callback_data="about"),
-                     InlineKeyboardButton("• ᴄʜᴀɴɴᴇʟs", callback_data="channels")],
-                    [InlineKeyboardButton("• Close •", callback_data="close")]
+                     InlineKeyboardButton("ᴄʜᴀɴɴᴇʟs •", callback_data="channels")],
+                    [InlineKeyboardButton("• Jᴏɪɴ ᴜᴘᴅᴀᴛᴇs •", url="https://t.me/Unrated_Coder")]
                 ]
             )
             await query.edit_message_media(
